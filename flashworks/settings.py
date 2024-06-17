@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Greek_Proj',
     'graphene_django',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
