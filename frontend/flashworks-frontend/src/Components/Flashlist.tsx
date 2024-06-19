@@ -18,16 +18,23 @@ interface Flash {
 
 const FlashList = () => {
   const [flashes, setFlashes] = useState<Flash[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     axios.get('http://127.0.0.1:8000/api/flashes/')
       .then(response => {
-        setFlashes(response.data);
+        console.log('API response:', response.data); // Log the full response
+        setFlashes(response.data.results); // Update this line to access the results key
       })
       .catch(error => {
         console.error('There was an error fetching the flashes!', error);
+        setError('There was an error fetching the flashes!');
       });
   }, []);
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
     <div>

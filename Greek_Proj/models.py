@@ -21,5 +21,8 @@ class QueryLog(models.Model):
     query = models.TextField()
     operation_name = models.CharField(max_length=255, null=True, blank=True)
     start_time = models.DateTimeField()
-    end_time= models.DateTimeField()
+    end_time = models.DateTimeField()   
     execution_time = models.FloatField()
+
+    class Meta:
+        db_table = 'Greek_Proj_querylog'

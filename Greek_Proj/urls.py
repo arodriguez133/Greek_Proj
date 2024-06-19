@@ -5,7 +5,8 @@ from .views import FlashViewSet, QueryLogViewSet
 
 router = DefaultRouter()
 router.register(r'flashes', FlashViewSet)
-router.register(r'query-logs', QueryLogViewSet)
+router.register(r'querylogs', QueryLogViewSet)
+
 
 
 urlpatterns = [

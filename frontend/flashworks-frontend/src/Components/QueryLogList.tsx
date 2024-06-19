@@ -1,39 +1,64 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 interface QueryLog {
-  id: number;
-  query: string;
-  operation_name: string | null;
-  start_time: string;
-  end_time: string;
-  execution_time: number;
+    id: number;
+    query: string;
+    operation_name: string;
+    start_time: string;
+    end_time: string;
+    execution_time: number;
 }
 
-const QueryLogList = () => {
-  const [queryLogs, setQueryLogs] = useState<QueryLog[]>([]);
+const QueryLogList: React.FC = () => {
+    const [queryLogs, setQueryLogs] = useState<QueryLog[]>([]);
+    const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/query-logs/')
-      .then(response => {
-        setQueryLogs(response.data);
-      })
-      .catch(error => {
-        console.error('There was an error fetching the query logs!', error);
-      });
-  }, []);
+    useEffect(() => {
+        axios.get('http://127.0.0.1:8000/api/querylogs/')
+            .then(response => {
+                console.log('API response:', response.data); // Log the full response
+                setQueryLogs(response.data.results); // Update this line to access the results key
+            })
+            .catch(error => {
+                console.error('There was an error fetching the query logs!', error);
+                setError('There was an error fetching the query logs!');
+            });
+    }, []);
 
-  return (
-    <div>
-      <ul>
-        {queryLogs.map(log => (
-          <li key={log.id}>
-            {log.operation_name} - {log.start_time}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-};
+    if (error) {
+        return <div>{error}</div>;
+    }
+
+    return (
+        <div>
+            <h2>Query Logs</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Query</th>
+                        <th>Operation Name</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Execution Time (s)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {queryLogs.map((log) => (
+                        <tr key={log.id}>
+                            <td>{log.id}</td>
+                            <td>{log.query}</td>
+                            <td>{log.operation_name}</td>
+                            <td>{new Date(log.start_time).toLocaleString()}</td>
+                            <td>{new Date(log.end_time).toLocaleString()}</td>
+                            <td>{log.execution_time.toFixed(2)}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
+}
 
 export default QueryLogList;
