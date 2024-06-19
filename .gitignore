@@ -1,11 +1,55 @@
-.installed.cfg
-bin
-develop-eggs
-dist
-downloads
-eggs
-parts
-src/*.egg-info
-lib
-lib64
+# Django
+*.log
+*.pot
+*.pyc
+__pycache__/
+db.sqlite3
+db.sqlite3-journal
+media
 .env
+
+# If you're using SQLite
+*.sqlite3
+
+# Django migrations
+*/migrations/*
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Vite
+dist/
+.vite/
+
+# Ignore MacOS system files
+.DS_Store
+
+# Ignore Windows system files
+Thumbs.db
+
+# Python
+*.py[cod]
+*$py.class
+
+# VSCode settings
+.vscode/
+
+# Coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Database
+*.sqlite3
+
+# static files
+staticfiles/
+
+# Virtual environment
+venv/
