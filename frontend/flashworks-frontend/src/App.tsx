@@ -1,27 +1,52 @@
+// src/components/App.tsx
 import React from 'react';
-import Flashlist from './Components/Flashlist';
-import QueryLogList  from './Components/QueryLogList';
+import {BrowserRouter as Router, Routes,Route} from 'react-router-dom';
+import FlashList from './Components/Flashlist';
+import QueryLogList from './Components/QueryLogList';
+import LoginButton from './Components/LoginButton';
+import LogoutButton from './Components/LogoutButton';
+import AdminDashboard from './Components/AdminDashboard';
+import PrivateRoute from './Components/PrivateRoute';
+import { useAuth0 } from '@auth0/auth0-react';
 
+const App: React.FC = () => {
+  const { isAuthenticated, isLoading, error } = useAuth0();
 
+  console.log('isAuthenticated:', isAuthenticated);
+  console.log('isLoading:', isLoading);
+  console.log('error:', error);
 
-const App = () => {
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Admin Dashboard</h1>
-      </header>
-      <main>
-        <section>
-          <h2>Flashes</h2>
-          <Flashlist/>
-          </section>
-          <section>
-          <h2>Query Logs</h2>
-          <QueryLogList/>
-        </section>
-      </main>
-    </div>
-  )
-}
+    <Router>
+      <div>
+        <h1>FlashWorks Dashboard</h1>
+        {isAuthenticated?(
+          <>
+          <LogoutButton />
+          <Routes>
+            <Route path="/admin" element={<PrivateRoute component={AdminDashboard}/>}/>
+            <Route path="/" element={
+              <>
+              <FlashList />
+              <QueryLogList />
+              </>
+            }/>
+          </Routes>
+          </>
+          ) : (
+            <LoginButton />
+          )}
+      </div>
+    </Router>
+  );
+};
 
 export default App;
