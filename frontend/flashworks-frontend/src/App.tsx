@@ -9,6 +9,7 @@ import PrivateRoute from './Components/PrivateRoute';
 import { useAuth0 } from '@auth0/auth0-react';
 import Menu from './Components/Menu';
 import Hamburger from './Components/Hamburger';
+import { MenuProvider } from './Components/MenuContext';
 
 const App: React.FC = () => {
   const { isAuthenticated, isLoading, error } = useAuth0();
@@ -28,8 +29,10 @@ const App: React.FC = () => {
   return (
     <Router>
       <div>
-      <Hamburger/>
-      <Menu/>
+      <MenuProvider>
+        <Hamburger/>
+        <Menu/>
+      </MenuProvider>
         {isAuthenticated?(
           <>
           <Routes>

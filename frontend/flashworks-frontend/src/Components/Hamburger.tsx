@@ -1,11 +1,13 @@
-import React,{useState} from 'react';
+import React from 'react';
+import {useMenu} from './MenuContext';
+
+
+
 
 const Hamburger = () => {
-    const [isOpen, setIsOpen] = useState(false);
+    const {isOpen, toggleMenu} = useMenu();
 
-    const toggleMenu = () => {
-        setIsOpen(!isOpen);
-    }
+
     return(
         <div className="hamburger-container" onClick={toggleMenu}>
                 <div className={`hamburger-icon ${isOpen ? 'open' : ''}`}>
