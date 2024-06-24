@@ -37,7 +37,7 @@ const FlashList = () => {
   }
 
   return (
-    <div>
+    <div className='flashes'>
       <ul>
         {flashes.map(flash => (
           <li key={flash.dbSequence}>

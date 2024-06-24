@@ -24,6 +24,7 @@ a:hover {
 
 body {
   margin: 0;
+  padding: 0;
   display: flex;
   place-items: center;
   min-width: 320px;
@@ -35,7 +36,7 @@ h1 {
   line-height: 1.1;
 }
 
-button {
+/* button {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
@@ -65,4 +66,88 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+*/
+
+button{
+  cursor: pointer;
+  background: none;
+  color: #000;
+  border: none;
+  font-size: 1.33em;
+}
+.menu{
+  background: white;
+  width: 23%;
+  height: 100vh;
+  position: absolute;
+  z-index: 1;
+  top: -2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.hamburger-container {
+  position: absolute;
+  z-index: 2;
+  top: 10px; /* Adjust top and left as per your requirement */
+  left: 10px;
+  width: 20px; /* Ensures the container doesn't expand */
+  height: 14px; /* Ensures the container doesn't expand */
+}
+
+.hamburger-icon {
+  position: relative;
+  width: 100%; /* Adjusted to use full container width */
+  height: 100%; /* Adjusted to use full container height */
+  cursor: pointer;
+}
+
+.hamburger-bar{
+  background-color: #000;
+  height: 2px;
+  width: 100%;
+  border-radius: 2px;
+  position: absolute;
+  left: 0;
+  transition: transform 0.25s ease-in-out, opacity 0.25s ease-in-out;
+}
+
+.hamburger-bar-1 {
+  top: 0;
+}
+
+.hamburger-bar-2 {
+  top: 6px;
+}
+
+.hamburger-bar-3 {
+  bottom: 0;
+}
+
+.hamburger-icon.open .hamburger-bar-1 {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.hamburger-icon.open .hamburger-bar-2 {
+  opacity: 0;
+}
+
+.hamburger-icon.open .hamburger-bar-3 {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+.menu-options-container{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.flashes{
+  position: relative;
+  z-index: -100;
 }
